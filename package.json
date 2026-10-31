@@ -1,0 +1,14 @@
+{
+  "name": "agent-cost-lens",
+  "version": "0.1.0",
+  "description": "按会话对账的 LLM 成本透镜：把 usage 流算成钱、缓存命中率和每轮均价",
+  "type": "module",
+  "bin": { "cost-lens": "bin/cli.mjs" },
+  "scripts": {
+    "test": "node --test",
+    "demo": "node bin/cli.mjs report demo/sample-session.jsonl"
+  },
+  "keywords": ["llm", "cost", "observability", "agent", "usage"],
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}
