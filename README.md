@@ -1,6 +1,6 @@
 # agent-cost-lens
-> **Open to remote internship — AI application / agent development.**
-> 广西大学 28 届本科在读，方向 AI 应用 / Agent 开发，接受远程实习（工作日晚上与周末，可配合线上协作）。
+> **可接远程项目 — AI 应用 / Agent 开发 / 自动化。**
+> 广西大学 28 届本科在读，方向 AI 应用 / Agent 开发；远程协作，工作日晚上与周末时间最整，小单可先做小样验收。
 > 做过一套本地 Agent 系统：单步 API 成本 0.026 → 0.0043 元（降 84%），缓存命中率 99%。
 > 联系方式：2567045535@qq.com　｜　项目复盘：juejin.cn/post/7701969275203895350
 > 
