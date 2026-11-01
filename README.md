@@ -1,3 +1,5 @@
+> **在线 Demo（静态页）**：[hayabusa-yl.github.io/agent-cost-lens](https://hayabusa-yl.github.io/agent-cost-lens/) —— 输入输出样例，不用装任何东西
+> 
 # agent-cost-lens
 > **可接远程项目 — AI 应用 / Agent 开发 / 自动化。**
 > 广西大学 28 届本科在读，方向 AI 应用 / Agent 开发；远程协作，工作日晚上与周末时间最整，小单可先做小样验收。
