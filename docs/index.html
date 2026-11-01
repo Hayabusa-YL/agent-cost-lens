@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>agent-cost-lens — 会话成本审计</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; max-width: 760px; margin: 40px auto; padding: 0 20px; color: #222; line-height: 1.7; }
+  h1 { font-size: 26px; margin-bottom: 4px; }
+  .sub { color: #888; font-size: 15px; margin-bottom: 28px; }
+  h2 { font-size: 19px; margin-top: 34px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
+  code, pre { background: #f5f5f5; border-radius: 6px; font-family: Consolas, monospace; }
+  code { padding: 2px 6px; font-size: 13px; }
+  pre { padding: 14px 16px; overflow-x: auto; font-size: 13px; line-height: 1.6; }
+  .card { background: #fafafa; border: 1px solid #eee; border-radius: 10px; padding: 18px 22px; margin: 14px 0; }
+  .kw { color: #d73a49; }
+  .ok { color: #22863a; }
+  .muted { color: #999; font-size: 13px; }
+  a { color: #0969da; }
+</style>
+</head>
+<body>
+
+<h1>agent-cost-lens</h1>
+<div class="sub">把 Agent 会话流水算成钱：一条命令给出总花费、缓存命中率、每次调用均价</div>
+
+<div class="muted">在线 Demo（静态） · 输入 JSONL 会话流水 → 输出成本报告 · <a href="https://github.com/Hayabusa-YL/agent-cost-lens">GitHub 仓库</a></div>
+
+<h2>输入：一份会话流水</h2>
+<pre>{"time": 1767225600000, "data": {"usage": {"inputTokens": 48213, "cacheReadTokens": 1902331, "outputTokens": 3311}}}
+{"time": 1767225605000, "data": {"usage": {"inputTokens": 31204, "cacheReadTokens": 1000270, "outputTokens": 2108}}}
+...</pre>
+<div class="muted">也认 prompt_tokens / completion_tokens / cache_read_input_tokens 别名；没有 usage 或时间戳的行自动跳过。</div>
+
+<h2>输出（demo 会话）</h2>
+<div class="card">
+- 总花费：<b>0.23 元</b><br>
+- 事件（调用）数：6<br>
+- 每个事件均价：0.0378 元<br>
+- 缓存命中率：<span class="ok">97.7%</span><br>
+- token：未命中输入 101502　命中输入 4392181　输出 9362<br>
+- 基线：1.20 元　偏差 <span class="ok">-81%</span>
+</div>
+
+<h2>怎么用</h2>
+<pre>node bin/cli.mjs report demo/sample-session.jsonl
+node bin/cli.mjs report today.jsonl --baseline 12.5        # 基线直接给金额
+node bin/cli.mjs report today.jsonl --baseline yesterday.jsonl  # 或拿另一份会话当基线
+node bin/cli.mjs report today.jsonl --json                 # 给下游用</pre>
+
+<h2>判读口径</h2>
+<div class="card">
+- 超基线两成 → 先看缓存命中率掉没掉，再看每次调用事件数涨没涨<br>
+- 明显低于基线 → 通常不是省钱，是费率表过期了<br>
+- 命中率从 95% 掉到 60% → 上下文被重排过，钱会翻好几倍
+</div>
+
+<h2>诚实边界</h2>
+<div class="card">
+- 只认 usage 形状的流水，不管日志收集、传输、存储<br>
+- 只算钱，不评估「这次调用值不值」<br>
+- 没有 Web UI，输出是 Markdown / JSON<br>
+- 单个会话几百到几千条事件；更大的量请自己分片<br>
+- 费率表必须自己对一遍账单，误差 5% 以内再信它
+</div>
+
+<div class="muted" style="margin-top:40px">
+仓库：<a href="https://github.com/Hayabusa-YL/agent-cost-lens">github.com/Hayabusa-YL/agent-cost-lens</a> · MIT
+</div>
+
+</body>
+</html>
