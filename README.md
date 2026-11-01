@@ -80,4 +80,9 @@ npm test
 - 没有 Web UI，输出是 Markdown 和 JSON。
 - 单个会话几百到几千条事件的量级；更大的量请自己分片。
 
+
+## 配套评测
+
+用同一套计价方式复盘的 LongBench v1 900 题全量跑分与成本：[longbench-harness](https://github.com/Hayabusa-YL/longbench-harness)
+
 MIT
